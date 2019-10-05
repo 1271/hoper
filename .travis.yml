@@ -3,10 +3,7 @@ addons:
 language: python
 dist: xenial
 python:
-  - "3.5"
   - "3.6"
-  - "3.7"
-#  - "nightly"
 cache: pip
 before_install:
   - sudo apt-get -y install python-setuptools libwebp-dev
@@ -16,7 +13,6 @@ install:
   - pip install -r requirements.txt
 script:
   - echo "OK"
-  - if [[ "${py_version:7:-2}" = "3.6" ]]; then allow_deploy="true"; fi
 deploy:
   - provider: pypi
     user: "__token__"
@@ -26,4 +22,3 @@ deploy:
     on:
       branch: master
       tags: true
-      condition: $allow_deploy == true
