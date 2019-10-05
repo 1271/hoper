@@ -4,7 +4,7 @@
 from __future__ import print_function
 
 from setuptools import setup
-from .hoper.meta import *
+from hoper.meta import *
 
 REQUIREMENTS = [
     'requests',
