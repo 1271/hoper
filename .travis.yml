@@ -1,0 +1,25 @@
+addons:
+  artifacts: true
+language: python
+dist: xenial
+python:
+  - "3.5"
+  - "3.6"
+  - "3.7"
+#  - "nightly"
+cache: pip
+before_install:
+  - sudo apt-get -y install python-setuptools libwebp-dev
+  - python -V
+install:
+  - pip install --upgrade setuptools pyinstaller
+  - pip install -r requirements.txt
+deploy:
+  - provider: pypi
+    user: "__token__"
+    password:
+      secure: "ueuaqcZjoS0MaTBmZQrOahr7wlaPVDK7omfGXXw4XuhACCU5QIY9Asp0nors1E6SIOYYNG1lgZrk97117NTFz6Tav/ll23WGT8oBGIMkVy1mnUdYs5bbr/hRoDA14WfqEZEFKrjupmhKWjVzKdpCIZ2dx8nltaEU9Y92vt0vigwryyqs4WVH53qNhyAWuYr0VkEKG+Dc+5uNLtdbVzNmZj53KB7oVFraukmpaLr43Y68SXS3h4CRzBzgaZNyxXxYNn3/4ITDUSxLhF2CGubcnztnUyehbMZb1uD9RyliH5418z2TPmD7kEsyX6ThnQlSmN5ha8y41YaHdOihboSIcGXQtZ41FZhBklzI84e5/sPmBr+ZKyjpNgqbMRhsGmKdL2+sHgGVKe6rynTEnba5PtmkbbfIW2lIezFgi5D337p86BQsfTwcMqYzwgwj3PSgcjBEGNTTmjO/PkqVxfxor5yUdKaib6CwKj6Hqzjiy+ngTjJnPajvbbGkBRBdsIsvEhpA5Ve9ItI/1NA7Nood62EIfreCZU5xAQqjzNnJqM6TOYS8uAKu7mum+05TNDe2qRASsYoRz7ivzG5nklcigQ6ZC9XUhAw0ohOERBxYHFR9K/gn0bGriQQZFG99HN5sUMlEHExvPiBc4BAfJ9O5Ibv2aTADIHR7KT1LwWEpOHM="
+    skip_cleanup: true
+    on:
+      branch: master
+      tags: true
