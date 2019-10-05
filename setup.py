@@ -4,7 +4,7 @@
 from __future__ import print_function
 
 from setuptools import setup
-from .hoper.meta import version, author
+from .hoper.meta import *
 
 REQUIREMENTS = [
     'requests',
@@ -18,20 +18,13 @@ release_status = 'Development Status :: 5 - Production/Stable'
 
 
 setup(
-    name='manga_py',
+    name='hoper',
     packages=[
-        'manga_py',
-        'manga_py.base_classes',
-        'manga_py.crypt',
-        'manga_py.cli',
-        'manga_py.http',
-        'manga_py.providers',
-        'manga_py.providers.helpers',
-        'manga_py.server',
+        'hoper',
     ],
     include_package_data=True,
     version=version,
-    description='Universal assistant download manga.',
+    description='Url redirects history assistant',
     long_description=long_description,
     author=author,
     author_email=email,
