@@ -21,6 +21,3 @@ deploy:
     on:
       branch: master
       tags: true
-branches:
-  only:
-  - master
