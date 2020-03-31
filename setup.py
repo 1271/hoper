@@ -41,13 +41,14 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
         'Topic :: Internet :: WWW/HTTP',
     ],
     python_requires='>=3.5',
     install_requires=REQUIREMENTS,
     entry_points={
         'console_scripts': [
-            'hoper = hoper:main',
+            'hoper = hoper.hoper:main',
         ]
     }
 )

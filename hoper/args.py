@@ -31,9 +31,15 @@ def get_cli_arguments() -> ArgumentParser:  # pragma: no cover
     args_parser.add_argument('-u', '--user-agent', type=str, metavar='AGENT', help='User-agent',
                              default='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)'
                                      ' Chrome/51.0.2704.103 Safari/537.36')
-    args_parser.add_argument('-c', '--cookies', metavar='COOKIE', type=str, nargs='*', default=[],
+    args_parser.add_argument('-c', '--cookies', metavar='C', type=str, nargs='*', default=[],
                              help='Cookies. Format: --cookies key1=value1 key2=value2')
-    args_parser.add_argument('-i', '--show-ip', action='store_true', help='Show ip for each hoop')
+    args_parser.add_argument('-i', '--show-ip', action='store_true', help='Show ip for each hop')
+    args_parser.add_argument('-T', '--timeout', type=int, help='How long to wait for te server to send'
+                                                               ' data before giving up. In milliseconds (1/1000 sec)')
+    args_parser.add_argument('-t', '--show-request-time', action='store_true', help='Show request time for each hop')
+    args_parser.add_argument('-E', '--no-error-messages', action='store_true', help='Don\'t show error messages')
+    args_parser.add_argument('-S', '--no-statistic', action='store_true', help='Don\'t show statistic message')
+    # args_parser.add_argument('-p', '--post', action='store_true', help='Use post instead of get')
     args_parser.add_argument('-v', '--version', action='version', help='Show version and exit', version=version)
 
     return args_parser
