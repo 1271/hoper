@@ -35,11 +35,17 @@ def get_cli_arguments() -> ArgumentParser:  # pragma: no cover
                              help='Cookies. Format: --cookies key1=value1 key2=value2')
     args_parser.add_argument('-i', '--show-ip', action='store_true', help='Show ip for each hop')
     args_parser.add_argument('-T', '--timeout', type=int, help='How long to wait for te server to send'
-                                                               ' data before giving up. In milliseconds (1/1000 sec)')
+                                                               ' data before giving up. In milliseconds (1/100 sec)')
     args_parser.add_argument('-t', '--show-request-time', action='store_true', help='Show request time for each hop')
     args_parser.add_argument('-E', '--no-error-messages', action='store_true', help='Don\'t show error messages')
     args_parser.add_argument('-S', '--no-statistic', action='store_true', help='Don\'t show statistic message')
     # args_parser.add_argument('-p', '--post', action='store_true', help='Use post instead of get')
+    args_parser.add_argument('-C', '--count-only', action='store_true', help='Show count hops and exit')
+    args_parser.add_argument('-j', '--allow-js-redirects', action='store_true', dest='try_js',
+                             help='Try detect js redirects')
+    args_parser.add_argument('--proxy', type=str, metavar='AGENT', nargs='*',
+                             help='Proxy. Format: http://proxy:123 (for http and https) or http=http://proxy:123'
+                                  ' https=http://secured-proxy:321 ftp=http://ftp-proxy:332')
     args_parser.add_argument('-v', '--version', action='version', help='Show version and exit', version=version)
 
     return args_parser

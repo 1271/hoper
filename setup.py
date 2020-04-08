@@ -38,13 +38,12 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         'Environment :: Console',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Topic :: Internet :: WWW/HTTP',
     ],
-    python_requires='>=3.5',
+    python_requires='>=3.6',
     install_requires=REQUIREMENTS,
     entry_points={
         'console_scripts': [
