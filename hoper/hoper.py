@@ -27,6 +27,11 @@ def main():
             print(len([i for i in history]) - 1, end='')
             return
 
+        if store().args.last_only:
+            url = [i for i in history][-1]
+            print(url.url)
+            return
+
         hops = 0
         for i, item in enumerate(history):
             i > 0 and print('')

@@ -34,6 +34,7 @@ def get_cli_arguments() -> ArgumentParser:  # pragma: no cover
     args_parser.add_argument('-c', '--cookies', metavar='C', type=str, nargs='*', default=[],
                              help='Cookies. Format: --cookies key1=value1 key2=value2')
     args_parser.add_argument('-i', '--show-ip', action='store_true', help='Show ip for each hop')
+    args_parser.add_argument('-l', '--last-only', action='store_true', help='Show only last url (without history)')
     args_parser.add_argument('-T', '--timeout', type=int, help='How long to wait for te server to send'
                                                                ' data before giving up. In milliseconds (1/100 sec)')
     args_parser.add_argument('-t', '--show-request-time', action='store_true', help='Show request time for each hop')

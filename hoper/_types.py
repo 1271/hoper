@@ -21,3 +21,4 @@ class Args(NamedTuple):
     count_only: bool
     try_js: bool
     proxy: Optional[List[str]]
+    last_only: bool
