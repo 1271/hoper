@@ -1,5 +1,3 @@
-from sys import stderr
-
 from requests.exceptions import *
 
 from ._args import arguments
@@ -9,11 +7,22 @@ from ._utils import cookies2dict
 from .history_util import get_history
 
 
+def __print_history(history):
+    hops = 0
+    for i, item in enumerate(history):
+        i > 0 and print('')
+        print_item(item)
+        hops = i
+
+    if hops > 0 and not store().args.no_statistic:
+        print('\nRedirects for url %s: %d' % (store().args.url, hops))
+
+
 def main():
     build_store(arguments.parse_args())
 
     if store().args.try_js:
-        print('JS redirects in test mode', file=stderr)
+        err('JS redirects in test mode')
 
     try:
         history = get_history(
@@ -32,14 +41,7 @@ def main():
             print(url.url)
             return
 
-        hops = 0
-        for i, item in enumerate(history):
-            i > 0 and print('')
-            print_item(item)
-            hops = i
-
-        if hops > 0 and not store().args.no_statistic:
-            print('\nRedirects for url %s: %d' % (store().args.url, hops))
+        __print_history(history)
 
     except RuntimeError as e:
         err(e.args[0] if len(e.args) else 'Internal error')

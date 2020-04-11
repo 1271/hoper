@@ -5,7 +5,7 @@ from ._types import Args
 from .proxy_parser import parse_proxies
 
 
-__store = {}
+_store = {}
 
 
 class Store:
@@ -27,7 +27,7 @@ class Store:
 
 
 def build_store(args: Namespace):
-    __store['store'] = Store(args=Args(
+    _store['store'] = Store(args=Args(
         url=args.url,
         user_agent=args.user_agent,
         cookies=args.cookies,
@@ -42,8 +42,8 @@ def build_store(args: Namespace):
         proxy=args.proxy,
         last_only=args.last_only,
     ))
-    return __store['store']
+    return _store['store']
 
 
 def store() -> Store:
-    return __store['store']
+    return _store['store']
