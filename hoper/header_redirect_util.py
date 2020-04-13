@@ -4,7 +4,7 @@ from typing import Tuple, Optional
 from requests import request, Response
 
 from ._store import store
-from ._utils import get_response_redirect_url
+from ._utils import get_response_redirect_url, err
 
 
 def find_redirect(url: str, **kwargs) -> Tuple[Response, Optional[str], float]:
@@ -18,11 +18,15 @@ def find_redirect(url: str, **kwargs) -> Tuple[Response, Optional[str], float]:
     if _proxies is not None and len(_proxies):
         kwargs.setdefault('proxies', _proxies)
 
-    response = request(
-        url=url,
-        allow_redirects=False,
-        stream=True,
-        **kwargs,
-    )
+    try:
+        response = request(
+            url=url,
+            allow_redirects=False,
+            stream=True,
+            **kwargs,
+        )
+    except Exception as e:
+        err('Bug for url: "%s"', url)
+        raise e
 
     return response, get_response_redirect_url(response), time() - start_time

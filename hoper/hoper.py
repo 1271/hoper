@@ -1,16 +1,25 @@
 from requests.exceptions import *
+from typing import List
 
 from ._args import arguments
 from ._print import print_item, err
 from ._store import build_store, store
 from ._utils import cookies2dict
-from .history_util import get_history
+from .history_util import get_history, Hope
+
+MAX_LOOPS = 3
 
 
-def __print_history(history):
+def __print_history(history: List[Hope]):
+    urls = {}
+
     hops = 0
     for i, item in enumerate(history):
         i > 0 and print('')
+        urls.setdefault(item.url, 1)
+        if item.url in urls.keys() and urls[item.url] > MAX_LOOPS:
+            raise RuntimeError('Loop detected')
+        urls[item.url] += 1
         print_item(item)
         hops = i
 
