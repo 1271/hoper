@@ -10,6 +10,13 @@ from .header_redirect_util import find_redirect
 from .js_redirect_util import find_js_redirect
 
 
+def __safe_js_redirect(response):
+    try:
+        return find_js_redirect(response)
+    except Exception:
+        return None
+
+
 def get_history(
         url: str, user_agent: str,
         cookies: dict, timeout: Optional[int] = None,
@@ -37,16 +44,21 @@ def get_history(
     while _url is not None:
         if _prev_url is not None:
             _url = urljoin(_prev_url, _url)
+
         response, _url, request_time = find_redirect(
             url=_url,
             **kwargs
         )
+
         item = Hope(type='header', url=response.url, status=response.status_code, time=request_time)
+
         if store().args.try_js and response.status_code < 300:  # only success codes
-            js_location = find_js_redirect(response)
+            js_location = __safe_js_redirect(response)
+
             if js_location is not None:
                 _url = js_location
                 item = Hope(type='js', url=response.url, status=response.status_code, time=request_time)
+
         response.close()
         _prev_url = _url
         yield item

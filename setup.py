@@ -12,7 +12,11 @@ REQUIREMENTS = [
 ]
 
 
-long_description = 'Please see https://github.com/1271/hoper'
+long_description = """
+Url redirects history assistant
+
+Please see https://github.com/1271/hoper
+"""
 
 release_status = 'Development Status :: 5 - Production/Stable'
 

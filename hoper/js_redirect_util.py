@@ -30,27 +30,49 @@ RE = (
 )
 
 
-def _parse_result(result) -> Optional[str]:
-    if result is None:
-        return None
+def _parse_result(line, js_start, js_end) -> Optional[str]:
+    for i, reg in enumerate(RE):
+        result = reg.search(line, pos=js_start, endpos=js_end)
 
-    groups = result.groupdict()
-    location = groups['location1'] or groups['location2']
-    if location is None:
-        return None
-    return location.split(';')[0]
+        if result is None:
+            return None
+
+        groups = result.groupdict()
+        location = groups['location1'] or groups['location2']
+
+        if location is not None:
+            return location.split(';')[0]
+
+    return None
 
 
 def find_js_redirect(response: Response) -> Optional[str]:
     if not response.headers.get('Content-Type', '').startswith('text/'):
         return
 
-    try:
-        for line in response.iter_lines():
-            for i, reg in enumerate(RE):
-                result = _parse_result(reg.search(line.decode()))
-                if result is not None:
-                    return result
-    except Exception:
-        pass
+    is_js = False
+
+    for line in response.iter_lines():
+
+        js_start = None
+        js_end = None
+        _line = line.decode()  # type: str
+
+        __js_start = _line.find('<script>')
+        if __js_start:
+            is_js = True
+            js_start = __js_start
+
+        __js_end = _line.find('</script>', js_start or 0)
+        if ~__js_end:
+            js_end = __js_end
+
+        if is_js:
+            result = _parse_result(_line, js_start, js_end)
+            if result is not None:
+                return result
+
+        if ~__js_end:
+            is_js = False
+
     return None
