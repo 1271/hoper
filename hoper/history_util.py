@@ -1,6 +1,7 @@
 from typing import List, Optional
 
 from requests.utils import default_headers
+from urllib.parse import urljoin
 
 from ._store import store
 from ._types import Hope
@@ -31,7 +32,11 @@ def get_history(
     if use_post:
         kwargs['method'] = 'post'
 
+    _prev_url = None
+
     while _url is not None:
+        if _prev_url is not None:
+            _url = urljoin(_prev_url, _url)
         response, _url, request_time = find_redirect(
             url=_url,
             **kwargs
@@ -43,4 +48,5 @@ def get_history(
                 _url = js_location
                 item = Hope(type='js', url=response.url, status=response.status_code, time=request_time)
         response.close()
+        _prev_url = _url
         yield item
