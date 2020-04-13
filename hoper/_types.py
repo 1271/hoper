@@ -22,3 +22,4 @@ class Args(NamedTuple):
     try_js: bool
     proxy: Optional[List[str]]
     last_only: bool
+    disallow_loops: bool

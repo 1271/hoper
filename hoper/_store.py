@@ -41,6 +41,7 @@ def build_store(args: Namespace):
         try_js=args.try_js,
         proxy=args.proxy,
         last_only=args.last_only,
+        disallow_loops=args.disallow_loops,
     ))
     return _store['store']
 

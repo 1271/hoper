@@ -47,6 +47,8 @@ def get_cli_arguments() -> ArgumentParser:  # pragma: no cover
     args_parser.add_argument('--proxy', type=str, metavar='AGENT', nargs='*',
                              help='Proxy. Format: http://proxy:123 (for http and https) or http=http://proxy:123'
                                   ' https=http://secured-proxy:321 ftp=http://ftp-proxy:332')
+    args_parser.add_argument('-F', '--do-not-follow-loops', action='store_true', dest='disallow_loops',
+                             help='If loop detected, stop operation')
     args_parser.add_argument('-v', '--version', action='version', help='Show version and exit', version=version)
 
     return args_parser
