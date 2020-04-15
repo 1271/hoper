@@ -52,7 +52,7 @@ def _parse_result(line, js_start, js_end) -> Optional[str]:
 
 def find_js_redirect(response: Response) -> Optional[str]:
     if not response.headers.get('Content-Type', '').startswith('text/'):
-        return
+        return None
 
     is_js = False
 

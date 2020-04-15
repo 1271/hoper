@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import Optional, Iterator
 
 from requests.utils import default_headers
 from urllib.parse import urljoin
@@ -21,7 +21,7 @@ def get_history(
         url: str, user_agent: str,
         cookies: dict, timeout: Optional[int] = None,
         use_post: bool = False
-) -> List[Hope]:
+) -> Iterator[Hope]:
     """
     :return: url, status, request_time
     """

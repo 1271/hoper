@@ -9,7 +9,7 @@ _store = {}
 
 
 class Store:
-    __proxies: Optional[Dict] = None
+    __proxies: Optional[Dict[str, str]] = None
     args: Args
 
     def __init__(self, args: Args):
@@ -20,7 +20,7 @@ class Store:
         return not self.args.no_error_messages
 
     @property
-    def proxies(self) -> Union[Dict[str, str]]:
+    def proxies(self) -> Optional[Dict[str, str]]:
         if self.__proxies is None and self.args.proxy is not None:
             self.__proxies = parse_proxies(self.args.proxy)
         return self.__proxies

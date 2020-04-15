@@ -9,9 +9,10 @@ before_install:
   - sudo apt-get -y install python-setuptools
   - python -V
 install:
-  - pip install --upgrade setuptools pyinstaller
+  - pip install --upgrade setuptools pyinstaller mypy
 script:
-  - echo "OK"
+  - mypy hoper
+  - test [ 1 -le $(python util.py http://google.com -CFj) ]
 deploy:
   - provider: pypi
     user: "__token__"

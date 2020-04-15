@@ -3,7 +3,7 @@
 
 from __future__ import print_function
 
-from setuptools import setup
+from setuptools import setup, find_packages
 from hoper.meta import *
 
 REQUIREMENTS = [
@@ -19,13 +19,15 @@ Please see https://github.com/1271/hoper
 """
 
 release_status = 'Development Status :: 5 - Production/Stable'
+if ~version.find('beta'):
+    release_status = 'Development Status :: 4 - Beta'
+if ~version.find('alpha'):
+    release_status = 'Development Status :: 3 - Alpha'
 
 
 setup(
     name='hoper',
-    packages=[
-        'hoper',
-    ],
+    packages=find_packages(exclude=('.mypy_cache', 'venv', 'tests')),
     include_package_data=True,
     version=version,
     description='Url redirects history assistant',

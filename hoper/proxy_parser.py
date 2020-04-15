@@ -9,7 +9,7 @@ RE = compile(r"""^(?:(?P<scheme>\w+)=)?(?P<url>\w+://.+)$""")
 
 
 def parse_proxies(items: Optional[List]) -> Union[Dict[str, str]]:
-    proxies = {}
+    proxies: Dict[str, str] = {}
     if items is None:
         return proxies
 

@@ -1,5 +1,5 @@
 from requests.exceptions import *
-from typing import List, Callable
+from typing import List, Callable, Dict, Optional, Union, Iterator
 
 from ._args import arguments
 from ._print import print_item, err
@@ -12,15 +12,15 @@ LOOP_DETECTED_MESSAGE = 'Loop detected "%s"'
 
 
 class LoopDetectedError(RuntimeError):
-    iterations = None
+    iterations: int = 0
 
-    def __init__(self, message=None, iterations=None, *args):
+    def __init__(self, message, iterations, *args):
         self.iterations = iterations
         super().__init__(message, *args)
 
 
-def __iterate(history: List[Hope], callback: Callable) -> int:
-    urls = {}
+def __iterate(history: Iterator[Hope], callback: Callable) -> int:
+    urls: Dict[str, int] = {}
 
     hops = 0
     for i, item in enumerate(history):
@@ -40,14 +40,14 @@ def __iterate(history: List[Hope], callback: Callable) -> int:
     return hops
 
 
-def __print_history(history: List[Hope]):
+def __print_history(history: Iterator[Hope]):
     def _(item, i):
         if i > 0:
             print('')
 
         print_item(item)
 
-    e = None
+    e: Optional[Union[LoopDetectedError, Exception]] = None
     try:
         hops = __iterate(history, _)
     except LoopDetectedError as e:
@@ -60,7 +60,7 @@ def __print_history(history: List[Hope]):
         raise e
 
 
-def __print_count(history: List[Hope]):
+def __print_count(history: Iterator[Hope]):
     def _(*args):
         pass
 
@@ -71,11 +71,11 @@ def __print_count(history: List[Hope]):
         raise e
 
 
-def __print_last_element(history: List[Hope]):
+def __print_last_element(history: Iterator[Hope]):
     def _(item: Hope, *args):
         urls.append(item.url)
 
-    urls = []
+    urls: List[str] = []
     try:
         __iterate(history, _)
     except LoopDetectedError as e:
