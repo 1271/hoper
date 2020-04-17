@@ -1,9 +1,11 @@
 from socket import getaddrinfo, AddressFamily
+from sys import stderr
 from typing import List, Tuple, Optional
 from urllib.parse import urlparse, urlunparse, ParseResult
+
 from requests import Response
-from ._store import store
-from sys import stderr
+
+from .store import store
 
 default_scheme = 'http'
 

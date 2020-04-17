@@ -1,11 +1,13 @@
-from requests.exceptions import *
 from typing import List, Callable, Dict, Optional, Union, Iterator
+
+from requests.exceptions import *
 
 from ._args import arguments
 from ._print import print_item, err
-from ._store import build_store, store
-from ._utils import cookies2dict
-from .history_util import get_history, Hope
+from .util.history_util import get_history
+from .util.store import build_store, store
+from .util.types import Hope
+from .util.utils import cookies2dict
 
 MAX_LOOPS = 3
 LOOP_DETECTED_MESSAGE = 'Loop detected "%s"'
@@ -86,7 +88,7 @@ def __print_last_element(history: Iterator[Hope]):
 
 
 def main():
-    build_store(arguments.parse_args())
+    build_store(**arguments.parse_args().__dict__)
 
     if store().args.try_js:
         err('JS redirects in test mode')

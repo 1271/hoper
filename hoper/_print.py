@@ -1,9 +1,9 @@
 from sys import stderr
 from urllib.parse import urlparse
 
-from ._store import store
-from ._types import Hope
-from ._utils import host2ip
+from .util.store import store
+from .util.types import Hope
+from .util.utils import host2ip
 
 
 def err(*args):

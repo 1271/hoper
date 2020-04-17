@@ -1,13 +1,13 @@
 from typing import Optional, Iterator
-
-from requests.utils import default_headers
 from urllib.parse import urljoin
 
-from ._store import store
-from ._types import Hope
-from ._utils import normalize_url
+from requests.utils import default_headers
+
 from .header_redirect_util import find_redirect
 from .js_redirect_util import find_js_redirect
+from .store import store
+from .types import Hope
+from .utils import normalize_url
 
 
 def __safe_js_redirect(response):

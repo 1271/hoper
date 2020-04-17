@@ -1,8 +1,7 @@
+import re
 from typing import Optional
 
 from requests import Response
-
-import re
 
 __all__ = ['find_js_redirect']
 

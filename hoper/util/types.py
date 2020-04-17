@@ -13,11 +13,10 @@ class Args(NamedTuple):
     user_agent: str
     cookies: List[str]
     show_ip: bool
-    timeout: int
+    timeout: Optional[int]
     show_request_time: bool
     no_error_messages: bool
     no_statistic: bool
-    # post: bool
     count_only: bool
     try_js: bool
     proxy: Optional[List[str]]
