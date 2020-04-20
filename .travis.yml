@@ -12,7 +12,7 @@ install:
   - pip install --upgrade setuptools pyinstaller mypy
 script:
   - mypy hoper
-  - test [ 1 -le $(python util.py http://google.com -CFj) ]
+  - ./test.sh
 deploy:
   - provider: pypi
     user: "__token__"
