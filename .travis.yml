@@ -10,6 +10,7 @@ before_install:
   - python -V
 install:
   - pip install --upgrade setuptools pyinstaller mypy
+  - pip install -r requirements.txt
 script:
   - mypy hoper
   - ./test.sh
