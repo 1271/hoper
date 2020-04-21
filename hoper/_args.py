@@ -45,7 +45,7 @@ def get_cli_arguments() -> ArgumentParser:  # pragma: no cover
     args_parser.add_argument('-C', '--count-only', action='store_true', help='Show count hops and exit')
     args_parser.add_argument('-j', '--allow-js-redirects', action='store_true', dest='try_js',
                              help='Try detect js redirects')
-    args_parser.add_argument('--proxy', type=str, metavar='AGENT', nargs='*',
+    args_parser.add_argument('--proxy', type=str, metavar='URL', nargs='*',
                              help='Proxy. Format: http://proxy:123 (for http and https) or http=http://proxy:123'
                                   ' https=http://secured-proxy:321 ftp=http://ftp-proxy:332')
     args_parser.add_argument('-F', '--do-not-follow-loops', action='store_true', dest='disallow_loops',
