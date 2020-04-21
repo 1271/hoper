@@ -1,3 +1,4 @@
+from json import dumps
 from typing import List, Callable, Dict, Optional, Union, Iterator
 
 from requests.exceptions import *
@@ -52,11 +53,36 @@ def __print_history(history: Iterator[Hope]):
     e: Optional[Union[LoopDetectedError, Exception]] = None
     try:
         hops = __iterate(history, _)
-    except LoopDetectedError as e:
+    except LoopDetectedError as _e:
+        e = _e
         hops = e.iterations
 
     if hops > 0 and not store().args.no_statistic:
         print('\nRedirects for url %s: %d' % (store().args.url, hops))
+
+    if e is not None:
+        raise e
+
+
+def __print_json(history: Iterator[Hope]):
+    result = {
+        'items': [],
+        'error': None,
+    }
+
+    def _(item: Hope, i):
+        _item = {f: getattr(item, f) for f in item._fields}
+        _item['i'] = i
+        result['items'].append(_item)
+
+    e: Optional[Union[LoopDetectedError, Exception]] = None
+    try:
+        __iterate(history, _)
+    except LoopDetectedError as _e:
+        e = _e
+        result['error'] = e.args[0] if len(e.args) else 'Loop error'
+
+    print(dumps(result, indent=(4 if store().args.pretty_json else None)))
 
     if e is not None:
         raise e
@@ -107,6 +133,10 @@ def main():
 
         if store().args.last_only:
             __print_last_element(history)
+            return
+
+        if store().args.print_json:
+            __print_json(history)
             return
 
         __print_history(history)

@@ -21,4 +21,6 @@ class Args(NamedTuple):
     try_js: bool
     proxy: Optional[List[str]]
     last_only: bool
+    print_json: bool
+    pretty_json: Optional[bool]
     disallow_loops: bool

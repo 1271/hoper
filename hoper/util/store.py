@@ -60,6 +60,8 @@ def build_store(url: str, **kwargs) -> Store:
         try_js=kwargs.get('try_js', False),
         proxy=kwargs.get('proxy', None),
         last_only=kwargs.get('last_only', False),
+        print_json=kwargs.get('print_json', False),
+        pretty_json=kwargs.get('pretty_json'),
         disallow_loops=kwargs.get('disallow_loops', False),
     ))
     return _store['store']
