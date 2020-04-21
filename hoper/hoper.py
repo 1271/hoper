@@ -1,5 +1,5 @@
 from json import dumps
-from typing import List, Callable, Dict, Optional, Union, Iterator
+from typing import List, Callable, Dict, Optional, Union, Iterator, Any
 
 from requests.exceptions import *
 
@@ -65,24 +65,25 @@ def __print_history(history: Iterator[Hope]):
 
 
 def __print_json(history: Iterator[Hope]):
-    result = {
-        'items': [],
-        'error': None,
-    }
+    items: List[Dict[str, Union[str, int, float]]] = []
+    error: Optional[str] = None
 
     def _(item: Hope, i):
         _item = {f: getattr(item, f) for f in item._fields}
         _item['i'] = i
-        result['items'].append(_item)
+        items.append(_item)
 
     e: Optional[Union[LoopDetectedError, Exception]] = None
     try:
         __iterate(history, _)
     except LoopDetectedError as _e:
         e = _e
-        result['error'] = e.args[0] if len(e.args) else 'Loop error'
+        error = e.args[0] if len(e.args) else 'Loop error'
 
-    print(dumps(result, indent=(4 if store().args.pretty_json else None)))
+    print(dumps({
+        'items': items,
+        'error': error,
+    }, indent=(4 if store().args.pretty_json else None)))
 
     if e is not None:
         raise e
