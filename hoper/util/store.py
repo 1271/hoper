@@ -48,7 +48,7 @@ def build_store(**kwargs) -> Store:
     :rtype: Store
     """
     _ = Store(args=Args(
-        user_agent=kwargs.get('user_agent', ('Python hoper:%s' % version)),
+        user_agent=kwargs.get('user_agent', ('Python hoper: %s' % version)),
         cookies=kwargs.get('cookies', []),
         show_ip=kwargs.get('show_ip', False),
         timeout=kwargs.get('timeout'),
