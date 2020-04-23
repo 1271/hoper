@@ -8,7 +8,6 @@ from ._print import print_item, err
 from .util.history_util import get_history
 from .util.store import build_store, store
 from .util.types import Hope
-from .util.utils import cookies2dict
 
 MAX_LOOPS = 3
 LOOP_DETECTED_MESSAGE = 'Loop detected "%s"'
@@ -58,7 +57,7 @@ def __print_history(history: Iterator[Hope]):
         hops = e.iterations
 
     if hops > 0 and not store().args.no_statistic:
-        print('\nRedirects for url %s: %d' % (store().args.url, hops))
+        print('\nRedirects: %d' % hops)
 
     if e is not None:
         raise e
@@ -115,18 +114,15 @@ def __print_last_element(history: Iterator[Hope]):
 
 
 def main():
-    build_store(**arguments.parse_args().__dict__)
+    _kw = arguments.parse_args().__dict__
+    url = _kw.pop('url')
+    build_store(**_kw)
 
     if store().args.try_js:
         err('JS redirects in test mode')
 
     try:
-        history = get_history(
-            store().args.url,
-            store().args.user_agent,
-            cookies2dict(store().args.cookies),
-            store().args.timeout
-        )
+        history = get_history(url)
 
         if store().args.count_only:
             __print_count(history)

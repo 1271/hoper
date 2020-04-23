@@ -5,7 +5,7 @@ from requests.utils import default_headers
 
 from .header_redirect_util import find_redirect
 from .js_redirect_util import find_js_redirect
-from .store import store
+from .store import store, build_store
 from .types import Hope
 from .utils import normalize_url
 
@@ -17,27 +17,28 @@ def __safe_js_redirect(response):
         return None
 
 
-def get_history(
-        url: str, user_agent: str,
-        cookies: dict, timeout: Optional[int] = None,
-        use_post: bool = False
-) -> Iterator[Hope]:
+def get_history(url: str, **_kw) -> Iterator[Hope]:
     """
     :return: url, status, request_time
     """
 
-    headers = default_headers()
-    headers['User-Agent'] = user_agent
+    if store() is None:
+        build_store()
+
+    headers = _kw.get('headers', default_headers())
+    headers['User-Agent'] = _kw.get('user-agent', store().args.user_agent)
     _url = normalize_url(url)
+
+    timeout = store().args.timeout
 
     kwargs = {
         'headers': headers,
-        'cookies': cookies,
+        'cookies': _kw.get('cookies', store().args.cookies),
         'timeout': (timeout * 10 if timeout else None),
     }
 
-    if use_post:
-        kwargs['method'] = 'post'
+    # if store().args.post:
+    #     kwargs['method'] = 'post'
 
     _prev_url = None
 

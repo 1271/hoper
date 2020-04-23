@@ -9,7 +9,6 @@ class Hope(NamedTuple):
 
 
 class Args(NamedTuple):
-    url: str
     user_agent: str
     cookies: List[str]
     show_ip: bool

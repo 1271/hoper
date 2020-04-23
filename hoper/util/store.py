@@ -4,7 +4,7 @@ from .proxy_parser import parse_proxies
 from .types import Args
 from ..meta import version
 
-_store = {}
+__store = {}
 
 
 class Store:
@@ -25,7 +25,7 @@ class Store:
         return self.__proxies
 
 
-def build_store(url: str, **kwargs) -> Store:
+def build_store(**kwargs) -> Store:
     """
     :param str url: String url
     :param str user_agent: String user-agent
@@ -47,8 +47,7 @@ def build_store(url: str, **kwargs) -> Store:
     :return:
     :rtype: Store
     """
-    _store['store'] = Store(args=Args(
-        url=url,
+    _ = Store(args=Args(
         user_agent=kwargs.get('user_agent', ('Python hoper:%s' % version)),
         cookies=kwargs.get('cookies', []),
         show_ip=kwargs.get('show_ip', False),
@@ -64,8 +63,13 @@ def build_store(url: str, **kwargs) -> Store:
         pretty_json=kwargs.get('pretty_json'),
         disallow_loops=kwargs.get('disallow_loops', False),
     ))
-    return _store['store']
+    set_store(_)
+    return store()
+
+
+def set_store(_store: Store):
+    __store['store'] = _store
 
 
 def store() -> Store:
-    return _store['store']
+    return __store['store']
