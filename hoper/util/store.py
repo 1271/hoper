@@ -4,7 +4,7 @@ from .proxy_parser import parse_proxies
 from .types import Args
 from ..meta import version
 
-__store = {}
+__store = {}  # type: ignore
 
 
 __all__ = ['store', 'Store', 'build_store']
