@@ -5,7 +5,7 @@ from requests.utils import default_headers
 
 from .header_redirect_util import find_redirect
 from .js_redirect_util import find_js_redirect
-from .store import store, build_store
+from .store import store, has_store, build_store
 from .types import Hope
 from .utils import normalize_url
 
@@ -40,7 +40,7 @@ def get_history(url: str, **_kw) -> Iterator[Hope]:
 
     headers = _kw.pop('headers', default_headers())
 
-    if store() is None:
+    if has_store() is None:
         build_store(**_kw)
 
     headers['User-Agent'] = store().args.user_agent

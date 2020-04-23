@@ -7,6 +7,9 @@ from ..meta import version
 __store = {}
 
 
+__all__ = ['store', 'Store', 'build_store']
+
+
 class Store:
     __proxies: Optional[Dict[str, str]] = None
     args: Args
@@ -65,6 +68,10 @@ def build_store(**kwargs) -> Store:
     ))
     set_store(_)
     return store()
+
+
+def has_store() -> bool:
+    return 'store' in __store.keys()
 
 
 def set_store(_store: Store):
