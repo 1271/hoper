@@ -40,7 +40,7 @@ def get_history(url: str, **_kw) -> Iterator[Hope]:
 
     headers = _kw.pop('headers', default_headers())
 
-    if has_store() is None:
+    if not has_store():
         build_store(**_kw)
 
     headers['User-Agent'] = store().args.user_agent
