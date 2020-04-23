@@ -1,4 +1,4 @@
-from typing import Optional, Iterator
+from typing import Iterator
 from urllib.parse import urljoin
 
 from requests.utils import default_headers
@@ -67,7 +67,7 @@ def get_history(url: str, **_kw) -> Iterator[Hope]:
 
         item = Hope(
             type='header', url=response.url, status=response.status_code,
-            time=request_time, headers=response.headers
+            time=request_time, headers=dict(response.headers)
         )
 
         if store().args.try_js and response.status_code < 300:  # only success codes
@@ -77,7 +77,7 @@ def get_history(url: str, **_kw) -> Iterator[Hope]:
                 _url = js_location
                 item = Hope(
                     type='js', url=response.url, status=response.status_code,
-                    time=request_time, headers=response.headers
+                    time=request_time, headers=dict(response.headers)
                 )
 
         response.close()

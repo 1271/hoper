@@ -1,5 +1,4 @@
-from typing import NamedTuple, List, Optional
-from requests.structures import CaseInsensitiveDict
+from typing import NamedTuple, List, Optional, Dict
 
 
 class Hope(NamedTuple):
@@ -7,7 +6,7 @@ class Hope(NamedTuple):
     url: str
     status: int
     time: float
-    headers: CaseInsensitiveDict[str]
+    headers: Dict[str, str]
 
 
 class Args(NamedTuple):
