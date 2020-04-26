@@ -1,4 +1,4 @@
-#!/urs/bin/env python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
@@ -12,10 +12,7 @@ email = '__email__'
 downloader_url = '__downloader_url__'
 
 
-REQUIREMENTS = [
-    'requests',
-    'urllib3',
-]
+REQUIREMENTS = []
 
 
 long_description = """
