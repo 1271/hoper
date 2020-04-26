@@ -1,10 +1,16 @@
-#!/usr/bin/python3
+#!/urs/bin/env python3
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
 
 from setuptools import setup, find_packages
-from hoper.meta import *
+
+
+version = '__version__'
+author = '__author__'
+email = '__email__'
+downloader_url = '__downloader_url__'
+
 
 REQUIREMENTS = [
     'requests',

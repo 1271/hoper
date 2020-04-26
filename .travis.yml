@@ -14,6 +14,8 @@ install:
 script:
   - mypy hoper
   - ./test.sh
+before_deploy:
+  - python build_setup.py
 deploy:
   - provider: pypi
     user: "__token__"
