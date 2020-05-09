@@ -17,10 +17,15 @@ install:
 build: off
 test_script:
 - cmd: >-
-    C:\Python38\Scripts\pyinstaller.exe gui.py --log-level CRITICAL -y -F -n hoper.exe
+    C:\Python38\Scripts\pyinstaller.exe gui.py --log-level CRITICAL -y -F -n hoper_gui.exe
+
+    C:\Python38\Scripts\pyinstaller.exe hoper.py --log-level CRITICAL -y -F -n hoper_cli.exe
 artifacts:
-- path: dist\hoper.exe
-  name: hoper.exe
+- path: dist\hoper_gui.exe
+    name: hoper_gui.exe
+    type: WebDeployPackage
+- path: dist\hoper_cli.exe
+  name: hoper_cli.exe
   type: WebDeployPackage
 deploy:
 - provider: GitHub
