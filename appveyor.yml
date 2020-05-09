@@ -1,5 +1,4 @@
 version: 1.{build}
-skip_non_tags: true
 image: Visual Studio 2017
 clone_folder: C:\projects\hoper
 init:
@@ -10,12 +9,12 @@ environment:
 install:
 - ps: >-
     cd C:\projects\hoper
-    C:/Python35/Scripts/pip.exe install --disable-pip-version-check --upgrade pip setuptools pyinstaller
-    C:/Python35/Scripts/pip.exe install -r gui.txt
+    pip.exe install -U pip setuptools pyinstaller
+    pip.exe install -Ur gui.txt
 build: off
 test_script:
 - cmd: >-
-    C:/Python35/Scripts/pyinstaller.exe gui.py --log-level CRITICAL -y -F -n hoper.exe
+    pyinstaller gui.py --log-level CRITICAL -y -F -n hoper.exe
 artifacts:
 - path: dist/hoper.exe
   name: hoper.exe
