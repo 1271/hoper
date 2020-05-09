@@ -22,11 +22,11 @@ test_script:
     C:\Python38\Scripts\pyinstaller.exe hoper.py --log-level CRITICAL -y -F -n hoper_cli.exe
 artifacts:
 - path: dist\hoper_gui.exe
-    name: hoper_gui.exe
-    type: WebDeployPackage
+  name: hoper_gui.exe
+  type: File
 - path: dist\hoper_cli.exe
   name: hoper_cli.exe
-  type: WebDeployPackage
+  type: File
 deploy:
 - provider: GitHub
   auth_token:
