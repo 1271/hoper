@@ -10,13 +10,13 @@ install:
 - ps: >-
     cd C:\projects\hoper
 
-    pip3 install -U pip setuptools pyinstaller
+    C:/Python35/Scripts/pip.exe install -U pip setuptools pyinstaller
 
-    pip3 install -Ur gui.txt
+    C:/Python35/Scripts/pip.exe install -Ur gui.txt
 build: off
 test_script:
-- cmd: >-
-    pyinstaller gui.py --log-level CRITICAL -y -F -n hoper.exe
+- ps: >-
+    C:/Python35/Scripts/pyinstaller.exe gui.py --log-level CRITICAL -y -F -n hoper.exe
 artifacts:
 - path: dist/hoper.exe
   name: hoper.exe
