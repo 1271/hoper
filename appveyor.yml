@@ -8,14 +8,6 @@ environment:
   PYTHON: C:\Python38\python.exe
 install:
 - cmd: >-
-    cd C:\Python38\
-
-    dir
-
-    cd Scripts
-
-    dir
-
     cd C:\projects\hoper
 
     C:\Python38\python.exe -m pip install -U pip setuptools pyinstaller
@@ -24,7 +16,7 @@ install:
 build: off
 test_script:
 - cmd: >-
-    pyinstaller gui.py --log-level CRITICAL -y -F -n hoper.exe
+    C:\Python38\Scripts\pyinstaller.exe gui.py --log-level CRITICAL -y -F -n hoper.exe
 artifacts:
 - path: dist\hoper.exe
   name: hoper.exe
