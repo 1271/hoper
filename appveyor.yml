@@ -9,7 +9,9 @@ environment:
 install:
 - ps: >-
     cd C:\projects\hoper
+
     pip.exe install -U pip setuptools pyinstaller
+
     pip.exe install -Ur gui.txt
 build: off
 test_script:
