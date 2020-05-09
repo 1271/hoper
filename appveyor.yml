@@ -8,11 +8,19 @@ environment:
   PYTHON: C:\Python38\python.exe
 install:
 - cmd: >-
+    cd C:\Python38\
+
+    dir
+
+    cd Scripts
+
+    dir
+
     cd C:\projects\hoper
 
-    python3 -m pip install -U pip setuptools pyinstaller
+    C:\Python38\python.exe -m pip install -U pip setuptools pyinstaller
 
-    python3 -m pip install -Ur gui.txt
+    C:\Python38\python.exe -m pip install -Ur gui.txt
 build: off
 test_script:
 - cmd: >-
