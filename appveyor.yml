@@ -10,9 +10,9 @@ install:
 - ps: >-
     cd C:\projects\hoper
 
-    pip.exe install -U pip setuptools pyinstaller
+    pip3 install -U pip setuptools pyinstaller
 
-    pip.exe install -Ur gui.txt
+    pip3 install -Ur gui.txt
 build: off
 test_script:
 - cmd: >-
