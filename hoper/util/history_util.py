@@ -57,11 +57,11 @@ def get_history(url: str, **_kw) -> Iterator[Hope]:
     _prev_url = None
 
     while _url is not None:
-        if _prev_url is not None:
-            _url = urljoin(_prev_url, _url)
+        if _prev_url is None:
+            _prev_url = _url
 
         response, _url, request_time = find_redirect(
-            url=_url,
+            url=urljoin(_prev_url, _url),
             **kwargs
         )
 
@@ -74,12 +74,14 @@ def get_history(url: str, **_kw) -> Iterator[Hope]:
             js_location = __safe_js_redirect(response)
 
             if js_location is not None:
-                _url = js_location
+                _url = urljoin(_prev_url, js_location)
                 item = Hope(
                     type='js', url=response.url, status=response.status_code,
                     time=request_time, headers=dict(response.headers)
                 )
 
+        _prev_url = response.url
+
         response.close()
-        _prev_url = _url
+
         yield item

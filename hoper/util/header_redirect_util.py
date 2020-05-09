@@ -26,7 +26,7 @@ def find_redirect(url: str, **kwargs) -> Tuple[Response, Optional[str], float]:
             **kwargs,
         )
     except Exception as e:
-        err('Bug for url: "%s"', url)
+        err('Bug for url: "%s"' % url)
         raise e
 
     return response, get_response_redirect_url(response), time() - start_time
