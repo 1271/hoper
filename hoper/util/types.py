@@ -7,6 +7,8 @@ class Hope(NamedTuple):
     status: int
     time: float
     headers: Dict[str, str]
+    hook: bool
+    original_url: str
 
 
 class Args(NamedTuple):
@@ -24,3 +26,4 @@ class Args(NamedTuple):
     print_json: bool
     pretty_json: Optional[bool]
     disallow_loops: bool
+    allow_hooks: bool = False

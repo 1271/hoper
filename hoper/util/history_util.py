@@ -1,4 +1,4 @@
-from typing import Iterator
+from typing import Iterator, Tuple
 from urllib.parse import urljoin
 
 from requests.utils import default_headers
@@ -8,6 +8,7 @@ from .js_redirect_util import find_js_redirect
 from .store import store, has_store, build_store
 from .types import Hope
 from .utils import normalize_url
+from .hooks import hooks_process
 
 
 def __safe_js_redirect(response):
@@ -60,6 +61,10 @@ def get_history(url: str, **_kw) -> Iterator[Hope]:
         if _prev_url is None:
             _prev_url = _url
 
+        original_url = _url
+
+        _url, hook = with_hooks(_url)
+
         response, _url, request_time = find_redirect(
             url=urljoin(_prev_url, _url),
             **kwargs
@@ -67,7 +72,8 @@ def get_history(url: str, **_kw) -> Iterator[Hope]:
 
         item = Hope(
             type='header', url=response.url, status=response.status_code,
-            time=request_time, headers=dict(response.headers)
+            time=request_time, headers=dict(response.headers),
+            hook=hook, original_url=original_url,
         )
 
         if store().args.try_js and response.status_code < 300:  # only success codes
@@ -77,7 +83,8 @@ def get_history(url: str, **_kw) -> Iterator[Hope]:
                 _url = urljoin(_prev_url, js_location)
                 item = Hope(
                     type='js', url=response.url, status=response.status_code,
-                    time=request_time, headers=dict(response.headers)
+                    time=request_time, headers=dict(response.headers),
+                    hook=hook, original_url=original_url,
                 )
 
         _prev_url = response.url
@@ -85,3 +92,12 @@ def get_history(url: str, **_kw) -> Iterator[Hope]:
         response.close()
 
         yield item
+
+
+def with_hooks(url) -> Tuple[str, bool]:
+    if store().args.allow_hooks:
+        _hook_url = hooks_process(url)
+        if _hook_url is not None:
+            return _hook_url, True
+    return url, False
+
