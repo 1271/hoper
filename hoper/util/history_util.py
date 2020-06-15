@@ -52,7 +52,7 @@ def get_history(url: str, **_kw) -> Iterator[Hope]:
     kwargs = {
         'headers': headers,
         'cookies': store().args.cookies,
-        'timeout': (timeout * 10 if timeout else None),
+        'timeout': (timeout / 100 if timeout else None),
     }
 
     _prev_url = None
