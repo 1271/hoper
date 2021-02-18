@@ -1,13 +1,27 @@
+from logging import info
 from time import time
-from typing import Tuple, Optional
+from typing import Tuple, Optional, List, Union
 
 from requests import request, Response
+from requests.exceptions import InvalidSchema
 
 from .store import store
 from .utils import get_response_redirect_url, err
 
 
-def find_redirect(url: str, **kwargs) -> Tuple[Response, Optional[str], float]:
+class FakedResponseClass:
+    url: str = None
+    status_code: int = 200
+    headers: List[str] = []
+
+    def __init__(self, url: str, ):
+        self.url = url
+
+    def close(self):
+        pass
+
+
+def find_redirect(url: str, **kwargs) -> Tuple[Union[Response, FakedResponseClass], Optional[str], float]:
     start_time = time()
     kwargs.setdefault('method', 'get')
     kwargs.pop('allow_redirects', None)
@@ -25,6 +39,9 @@ def find_redirect(url: str, **kwargs) -> Tuple[Response, Optional[str], float]:
             stream=True,
             **kwargs,
         )
+    except InvalidSchema as _e:
+        info(_e.args)
+        return FakedResponseClass(url), None, time() - start_time
     except Exception as e:
         err('Bug for url: "%s"' % url)
         raise e

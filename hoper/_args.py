@@ -54,7 +54,7 @@ def get_cli_arguments() -> ArgumentParser:  # pragma: no cover
     args_parser.add_argument('--pretty-json', action='store_true',
                              help='Makes sense only if the  --print-json argument is specified')
     args_parser.add_argument('-v', '--version', action='version', help='Show version and exit', version=version)
-    args_parser.add_argument('-H', '--allow-hooks', action='store_true', help='Allow use special hooks for some sites')
+    args_parser.add_argument('-H', '--disallow-hooks', action='store_true', help='Disable special hooks for some sites')
 
     return args_parser
 

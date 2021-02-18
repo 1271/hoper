@@ -3,11 +3,12 @@ import re
 from typing import Optional
 from urllib.parse import unquote
 
+_VK_HOOK = re.compile(r'^https?://vk.com/away.php?.*\bto=(.+?)(?:&\w+=.*)?$')
+_YOUTUBE_HOOK = re.compile(r'^https?://www.youtube.com/redirect?.*\bq=(.+?)(?:&\w+=.*)?$')
+
 hooks = [
-    (
-        re.compile(r'^https?://vk.com/away.php?.*to=(.+?)(?:&\w+=.*)?$'),
-        lambda r: unquote(r.group(1)),
-    ),
+    lambda url: unquote(_VK_HOOK.search(url).group(1)),
+    lambda url: unquote(_YOUTUBE_HOOK.search(url).group(1)),
 ]
 
 
@@ -17,7 +18,7 @@ __all__ = ['hooks_process', ]
 def hooks_process(url: str) -> Optional[str]:
     for hook in hooks:
         try:
-            return hook[1](hook[0].search(url))
+            return hook(url)
         except Exception:
             pass
 
