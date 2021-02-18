@@ -1,6 +1,6 @@
 from logging import info
 from time import time
-from typing import Tuple, Optional, List, Union
+from typing import Tuple, Optional, Dict, Union
 
 from requests import request, Response
 from requests.exceptions import InvalidSchema
@@ -10,12 +10,13 @@ from .utils import get_response_redirect_url, err
 
 
 class FakedResponseClass:
-    url: str = None
+    url: str
     status_code: int = 200
-    headers: List[str] = []
+    headers: Dict[str, str]
 
     def __init__(self, url: str, ):
         self.url = url
+        self.headers = {}
 
     def close(self):
         pass
