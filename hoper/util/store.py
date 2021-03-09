@@ -65,7 +65,7 @@ def build_store(**kwargs) -> Store:
         print_json=kwargs.get('print_json', False),
         pretty_json=kwargs.get('pretty_json'),
         disallow_loops=kwargs.get('disallow_loops', False),
-        allow_hooks=kwargs.get('allow_hooks', False),
+        allow_hooks=not kwargs.get('disallow_hooks', False),
     ))
     set_store(_)
     return store()

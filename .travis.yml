@@ -19,6 +19,7 @@ before_deploy:
 deploy:
   - provider: pypi
     user: "__token__"
+    distributions: "sdist bdist_wheel"
     password:
       secure: "dg2nws3j+1q3frTx+AuZPOzeDhVbJupDrDyxjPJp9GEYKZ8zHr1Nxi6V3eVJEOD2LvkymEbcvjQlBwgea1idtmCJuQAWn+9aKcc4a87oaZwzKdzxlsJdOvG6o/BdNvtBIAzaYR+UdAaKnNJ8gknXRcD8T9GIdEuKq9WGviJtZEY8yPLsUJIYxlyCX9AgGxezE0YrfwxMM6WZLApIq6D14QeixqkLUXdcKzW6F1Lbd18PdiWyRESh1eRPI6EE2pe+hfdl4OXF6RUVdZ8bw7sLqeDp5Cmg+ggXgVDMp1QDxim8NSl6ZeQaZUH5PtBy761ZjGvUoNuGqcxhrIcH45glt0hW+5CU26eiKLKpClKMjnOaJQt6Qss8PTfWOMk7VRsszBuk+GWWw94kzoi+l40Uk/wtOaTBTkdXH389KTAsanov8uMBZT7UR9t/aGKLZMhggW9UPebsvv6ZDfB/beD/Z/ZAHn6BZmC/+CxrLtrKTHF+Yu7BgaBxzL5r5ULlS5yID2TiVKRV6cBxPfnCxMZ7+wJuZjvfXjXnNZ4MLVB48pGguuwifikcohcuvnezHtx2ctrNIsXCf758EBTTjZJ5QnR9eWWVYEecrTnGDR+gTh7Vv70a7vtcXxvcYmhMISGp4cimjjhX84JPYBUoPCHs0l0JRHiyBw5IJs+JFFyesSE="
     skip_cleanup: true
